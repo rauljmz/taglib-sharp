@@ -24,11 +24,13 @@
 using System;
 using System.Collections.Generic;
 
+
 using TagLib.Jpeg;
 using TagLib.Gif;
 using TagLib.IFD;
 using TagLib.Xmp;
 using TagLib.Png;
+using System.Reflection;
 
 namespace TagLib.Image
 {
@@ -214,7 +216,7 @@ namespace TagLib.Image
 			EnsureAvailableTags ();
 			var from_tag = file.ImageTag;
 			var to_tag = ImageTag;
-			foreach (var prop in typeof (TagLib.Image.ImageTag).GetProperties ()) {
+			foreach (var prop in typeof (ImageTag).GetProperties ()) {
 				if (!prop.CanWrite || prop.Name == "TagTypes")
 					continue;
 

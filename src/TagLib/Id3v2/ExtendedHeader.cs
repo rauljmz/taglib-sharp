@@ -34,7 +34,7 @@ namespace TagLib.Id3v2
 	///    This class is a filler until support for reading and writing the
 	///    ID3v2 extended header is implemented.
 	/// </summary>
-	public class ExtendedHeader : ICloneable
+	public class ExtendedHeader
 	{
 		/// <summary>
 		///    Contains the size of the read header.
@@ -112,10 +112,7 @@ namespace TagLib.Id3v2
 			return header;
 		}
 		
-		object ICloneable.Clone ()
-		{
-			return Clone ();
-		}
+		
 		
 #endregion
 	}

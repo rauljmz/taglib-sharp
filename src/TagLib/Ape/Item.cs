@@ -55,7 +55,7 @@ namespace TagLib.Ape {
 	///    This class provides a representation of an APEv2 tag item which
 	///    can be read from and written to disk.
 	/// </summary>
-	public class Item : ICloneable
+	public class Item 
 	{
 		#region Private Fields
 		
@@ -522,10 +522,7 @@ namespace TagLib.Ape {
 			return new Item (this);
 		}
 		
-		object ICloneable.Clone ()
-		{
-			return Clone ();
-		}
+		
 		
 #endregion
 	}

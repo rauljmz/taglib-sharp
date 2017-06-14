@@ -24,6 +24,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace TagLib {
 	/// <summary>
@@ -123,13 +125,14 @@ namespace TagLib {
 		/// </remarks>
 		public static void Register (Type type)
 		{
-			Attribute [] attrs = Attribute.GetCustomAttributes (type,
-				typeof(SupportedMimeType), false);
+			IEnumerable<SupportedMimeType> attrs = type.GetTypeInfo().GetCustomAttributes<SupportedMimeType>(false);
 			
-			if(attrs == null || attrs.Length == 0)
+			if(attrs == null || !attrs.Any())
+			{
 				return;
-			
-			foreach(SupportedMimeType attr in attrs)
+			}
+
+			foreach (SupportedMimeType attr in attrs)
 				file_types.Add(attr.MimeType, type);
 		}
 		

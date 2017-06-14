@@ -39,16 +39,16 @@ namespace TagLib.Id3v2 {
 	///    cref="T:System.Collections.Generic.IEnumerable`1" /> to provide support for reading and
 	///    writing ID3v2 tags.
 	/// </summary>
-	public class Tag : TagLib.Tag, IEnumerable<Frame>, ICloneable
+	public class Tag : TagLib.Tag, IEnumerable<Frame> 
 	{
-#region Private Static Fields
-		
+		#region Private Static Fields
+
 		/// <summary>
 		///    Contains the language to use for language specific
 		///    fields.
 		/// </summary>
-		private static string language = 
-			CultureInfo.CurrentCulture.ThreeLetterISOLanguageName;
+		private static string language =
+			CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 		
 		/// <summary>
 		///    Contains the field to use for new tags.
@@ -1948,7 +1948,7 @@ namespace TagLib.Id3v2 {
 				if (text == null) {
 					return double.NaN;
 				}
-				if (text.ToLower(CultureInfo.InvariantCulture).EndsWith("db")) {
+				if (text.ToLower().EndsWith("db")) {
 					text = text.Substring (0, text.Length - 2).Trim();
 				}
 				
@@ -2021,7 +2021,7 @@ namespace TagLib.Id3v2 {
 				if (text == null) {
 					return double.NaN;
 				}
-				if (text.ToLower(CultureInfo.InvariantCulture).EndsWith("db")) {
+				if (text.ToLower().EndsWith("db")) {
 					text = text.Substring (0, text.Length - 2).Trim();
 				}
 				
@@ -2241,10 +2241,7 @@ namespace TagLib.Id3v2 {
 			return tag;
 		}
 		
-		object ICloneable.Clone ()
-		{
-			return Clone ();
-		}
+		
 		
 #endregion
 	}

@@ -149,14 +149,7 @@ namespace TagLib.Id3v2
 		
 		
 #region Public Methods
-		
-		/// <summary>
-		///    Gets a string representation of the current instance.
-		/// </summary>
-		/// <returns>
-		///    A <see cref="string" /> object describing the current
-		///    instance.
-		/// </returns>
+				
 		public override string ToString ()
 		{
 			return base.ToString ();

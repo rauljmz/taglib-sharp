@@ -31,7 +31,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Runtime.Serialization;
 
 namespace TagLib {
 	
@@ -1395,8 +1394,7 @@ namespace TagLib {
 					ext = abstraction.Name.Substring (index,
 						abstraction.Name.Length - index);
 				
-				mimetype = "taglib/" + ext.ToLower(
-					CultureInfo.InvariantCulture);
+				mimetype = "taglib/" + ext.ToLower();
 			}
 			
 			foreach (FileTypeResolver resolver in file_type_resolvers) {
@@ -1477,13 +1475,14 @@ namespace TagLib {
         /// <param name="ex"></param>
 		private static void PrepareExceptionForRethrow(Exception ex)
 		{
-            var ctx = new StreamingContext(StreamingContextStates.CrossAppDomain);
-            var mgr = new ObjectManager(null, ctx);
-            var si = new SerializationInfo(ex.GetType(), new FormatterConverter());
+			//TODO is this needed?
+            //var ctx = new StreamingContext(StreamingContextStates.CrossAppDomain);
+            //var mgr = new ObjectManager(null, ctx);
+            //var si = new SerializationInfo(ex.GetType(), new FormatterConverter());
 
-            ex.GetObjectData(si, ctx);
-            mgr.RegisterObject(ex, 1, si); // prepare for SetObjectData
-            mgr.DoFixups(); // ObjectManager calls SetObjectData
+            //ex.GetObjectData(si, ctx);
+            //mgr.RegisterObject(ex, 1, si); // prepare for SetObjectData
+            //mgr.DoFixups(); // ObjectManager calls SetObjectData
 		}
 
 		#endregion
@@ -1585,7 +1584,7 @@ namespace TagLib {
 				if (stream == null)
 					throw new ArgumentNullException ("stream");
 				
-				stream.Close ();
+				stream.Dispose ();
 			}
 		}
 		

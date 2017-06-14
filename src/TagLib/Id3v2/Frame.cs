@@ -32,7 +32,7 @@ namespace TagLib.Id3v2 {
 	///    This abstract class provides a basic framework for representing
 	///    ID3v2.4 frames.
 	/// </summary>
-	public abstract class Frame : ICloneable
+	public abstract class Frame
 	{
 		#region Private Fields
 		
@@ -529,10 +529,7 @@ namespace TagLib.Id3v2 {
 				4, false);
 		}
 		
-		object ICloneable.Clone ()
-		{
-			return Clone ();
-		}
+		
 		
 #endregion
 	}
