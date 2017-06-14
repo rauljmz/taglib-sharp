@@ -29,6 +29,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace TagLib.Ogg
 {
@@ -393,7 +394,6 @@ namespace TagLib.Ogg
 				string value = comment.Substring (
 					comment_separator_position + 1);
 				string [] values;
-				
 				if (field_list.TryGetValue (key, out values)) {
 					Array.Resize <string> (ref values,
 						values.Length + 1);
@@ -402,7 +402,7 @@ namespace TagLib.Ogg
 				} else {
 					SetField (key, value);
 				}
-			}
+			}			
 		}
 		
 #endregion
@@ -1110,6 +1110,70 @@ namespace TagLib.Ogg
 			set {SetField ("RELEASECOUNTRY", value);}
 		}
 
+		public override string[] ID
+		{
+			get
+			{
+				return GetField("ID");
+			}
+			set
+			{
+				SetField("ID", value);
+			}
+		}
+
+		public override T GetTag<T>(string key)
+		{
+			object returnValue = default(T);
+			if (key == null) return (T)returnValue;
+
+			var upperKey = key.ToUpper();
+
+			if (typeof(T) == typeof(string))
+			{
+				returnValue = GetFirstField(upperKey);
+			}
+			else if(typeof(T) == typeof(string[]))
+			{
+				returnValue = GetField(upperKey);
+			}
+
+			else if (typeof(T) == typeof(uint))
+			{
+				var stringValue = GetFirstField(upperKey).StripNonDigits();
+				uint convertedValue;
+				if(uint.TryParse(stringValue, out convertedValue))
+				{
+					returnValue = convertedValue;
+				}
+				returnValue = 0;
+			}
+			else if (typeof(T) == typeof(double))
+			{
+				var stringValue = GetFirstField(upperKey).StripNonDigits();
+				double convertedValue;
+				if (double.TryParse(stringValue, out convertedValue))
+				{
+					returnValue = convertedValue;
+				}
+				returnValue = 0;
+			}
+			return (T)Convert.ChangeType(returnValue, typeof(T));
+		}
+		
+		public override void SetTag(string key, string value)
+		{
+			SetField(key, value);
+		}
+
+		public override void SetTag(string key, IEnumerable<string> values)
+		{
+			foreach (var value in values)
+			{
+				SetField(key, value); 
+			}
+		}
+
 		/// <summary>
 		///    Gets and sets a collection of pictures associated with
 		///    the media represented by the current instance.
@@ -1350,5 +1414,12 @@ namespace TagLib.Ogg
 		}
 		
 #endregion
+	}
+	public static class Extension
+	{
+		public static string StripNonDigits(this string source)
+		{
+			return new string(source.ToCharArray().Where(c => "1234567890.".Contains(c)).ToArray());
+		}
 	}
 }

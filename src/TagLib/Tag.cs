@@ -27,6 +27,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 namespace TagLib {
 	/// <summary>
@@ -918,7 +919,19 @@ namespace TagLib {
 			get {return Performers;}
 			set {Performers = value;}
 		}
-		
+
+		/// <summary>
+		/// Custom tag to retrieve the ID of the disc		
+		/// </summary>
+		public virtual string[] ID { get { return null; } set { } }
+	
+
+		public virtual T GetTag<T>(string key) { return default(T); }
+
+		public virtual void SetTag(string key, string value) { }
+
+		public virtual void SetTag(string key, IEnumerable<string> values) { }
+
 		/// <summary>
 		///    Gets the same value as <see cref="FirstPerformer" />.
 		/// </summary>
@@ -1148,7 +1161,7 @@ namespace TagLib {
 		public string JoinedGenres {
 			get {return JoinGroup(Genres);}
 		}
-		
+
 		/// <summary>
 		///    Gets the first string in an array.
 		/// </summary>

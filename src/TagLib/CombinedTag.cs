@@ -1629,6 +1629,59 @@ namespace TagLib {
 			}
 		}
 
+
+		public override string[] ID
+		{
+			get
+			{
+				foreach (Tag tag in tags)
+				{
+					if (tag == null)
+						continue;
+
+					string[] value = tag.ID;
+
+					return value;
+				}
+
+				return null;
+			}
+
+			set
+			{
+				foreach (Tag tag in tags)
+					if (tag != null)
+						tag.ID = value;
+			}
+		}
+
+		public override T GetTag<T>(string key)
+		{
+			foreach(Tag tag in tags)
+			{
+				if (tag == null) continue;
+
+				return tag.GetTag<T>(key);
+			}
+			return default(T);
+		}
+
+		public override void SetTag(string key, string value)
+		{
+			foreach(Tag tag in tags)
+			{
+				tag.SetTag(key, value);
+			}
+		}
+
+		public override void SetTag(string key, IEnumerable<string> values)
+		{
+			foreach (var value in values)
+			{
+				SetTag(key, value);
+			}
+		}
+
 		/// <summary>
 		///    Gets whether or not the current instance is empty.
 		/// </summary>
