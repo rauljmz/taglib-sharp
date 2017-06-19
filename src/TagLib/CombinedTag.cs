@@ -1676,9 +1676,9 @@ namespace TagLib {
 
 		public override void SetTag(string key, IEnumerable<string> values)
 		{
-			foreach (var value in values)
+			foreach (Tag tag in tags)
 			{
-				SetTag(key, value);
+				tag.SetTag(key, values);
 			}
 		}
 

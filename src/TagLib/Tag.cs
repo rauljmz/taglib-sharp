@@ -924,7 +924,8 @@ namespace TagLib {
 		/// Custom tag to retrieve the ID of the disc		
 		/// </summary>
 		public virtual string[] ID { get { return null; } set { } }
-	
+
+		public virtual IEnumerable<T> GetAllTags<T>(string key) { return new T[] { }; }
 
 		public virtual T GetTag<T>(string key) { return default(T); }
 

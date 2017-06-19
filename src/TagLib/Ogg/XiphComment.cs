@@ -1120,6 +1120,7 @@ namespace TagLib.Ogg
 				SetField("ID", value);
 			}
 		}
+		
 
 		public override T GetTag<T>(string key)
 		{
@@ -1167,10 +1168,7 @@ namespace TagLib.Ogg
 
 		public override void SetTag(string key, IEnumerable<string> values)
 		{
-			foreach (var value in values)
-			{
-				SetField(key, value); 
-			}
+			SetField(key, values.ToArray());
 		}
 
 		/// <summary>
